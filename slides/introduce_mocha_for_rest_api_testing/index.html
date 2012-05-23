@@ -11,10 +11,10 @@
   <title>Mocha: feature-rich JavaScript test framework - 葱丝瓣酱</title>
   <meta name="author" content="Xiaocong He">
   
-  <meta name="description" content="Mocha - javascript test framework Introduction
-Mocha is a feature-rich JavaScript test framework running on node and the browser, making &hellip;">
+  <meta name="description" content="Mocha - javascript test framework Mocha
+Mocha is a feature-rich JavaScript test framework running on node and the browser, making asynchronous &hellip;">
   
-  <meta name="viewport" content="width=1024">
+  <meta name="viewport" content="width=device-width">
   
   <!-- Core and extension CSS files -->
   <link rel="stylesheet" href="/deck.js/core/deck.core.css">
@@ -23,12 +23,12 @@ Mocha is a feature-rich JavaScript test framework running on node and the browse
   <link rel="stylesheet" href="/deck.js/extensions/navigation/deck.navigation.css">
   <link rel="stylesheet" href="/deck.js/extensions/status/deck.status.css">
   <link rel="stylesheet" href="/deck.js/extensions/hash/deck.hash.css">
-  <link rel="stylesheet" href="/deck.js/extensions/scale/deck.scale.css">
+  <!--<link rel="stylesheet" href="/deck.js/extensions/scale/deck.scale.css">-->
   
   <!-- Style theme. More available in /themes/style/ or create your own. -->
-  <link rel="stylesheet" href="/deck.js/themes/style/neon.css">
+  <link rel="stylesheet" href="/deck.js/themes/style/swiss.css">
   <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-  <link rel="stylesheet" href="/deck.js/themes/transition/vertical-slide.css">
+  <link rel="stylesheet" href="/deck.js/themes/transition/fade.css">
 
   <script src="/deck.js/modernizr.custom.js"></script>
 </head>
@@ -39,7 +39,7 @@ Mocha is a feature-rich JavaScript test framework running on node and the browse
 </section>
 
 <section class="slide">
-<h2>Introduction</h2>
+<h2>Mocha</h2>
 <blockquote><p>Mocha is a feature-rich JavaScript test framework running on node and the browser, making asynchronous testing simple and fun. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases. Hosted on GitHub.</p></blockquote>
 </section>
 
@@ -69,11 +69,9 @@ Mocha is a feature-rich JavaScript test framework running on node and the browse
 
 <section class="slide">
 <h2>Installation - I<h2>
-
 <ul>
-  <li class="slide"><p>Install <a href="http://nodejs.org/">Node.js and npm</a></p></li>
-  <li class="slide"><p>Install <a href="http://github.com/visionmedia/mocha">mocha</a></p>
-
+  <li class="slide">Install <a href="http://nodejs.org/">Node.js and npm</a></li>
+  <li class="slide">Install <a href="http://github.com/visionmedia/mocha">mocha</a><br/>
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>npm install -g mocha
 </span></code></pre></td></tr></table></div></figure>
@@ -84,8 +82,8 @@ Mocha is a feature-rich JavaScript test framework running on node and the browse
 <section class="slide">
   <h2>Installation - II</h2>
   <ul>
-  <li class="slide"><p>Install asserting library</p>
-    <span><a href="http://github.com/visionmedia/should.js"><strong>should.js</strong></a>, <a href="https://github.com/LearnBoost/expect.js">expect.js</a>, <a href="http://chaijs.com/">chai</a></span>
+  <li class="slide">Install asserting library</br>
+    <span><a href="http://github.com/visionmedia/should.js"><strong>should.js</strong></a>, <a href="https://github.com/LearnBoost/expect.js">expect.js</a>, <a href="http://chaijs.com/">chai</a></span><br/>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>npm install -g should
@@ -374,7 +372,7 @@ Mocha is a feature-rich JavaScript test framework running on node and the browse
 <script src="/deck.js/extensions/goto/deck.goto.js"></script>
 <script src="/deck.js/extensions/status/deck.status.js"></script>
 <script src="/deck.js/extensions/navigation/deck.navigation.js"></script>
-<script src="/deck.js/extensions/scale/deck.scale.js"></script>
+<!--<script src="/deck.js/extensions/scale/deck.scale.js"></script>-->
 
 <!-- Initialize the deck -->
 <script>
