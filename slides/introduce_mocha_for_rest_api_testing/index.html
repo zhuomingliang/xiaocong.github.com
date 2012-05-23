@@ -343,6 +343,73 @@ Mocha is a feature-rich JavaScript test framework running on node and the browse
 </section>
 
 <section class="slide">
+<h2>References</h2>
+<ul>
+  <li>Node: <a href="http://nodejs.org/">http://nodejs.org/</a></li>
+  <li>Mocha: <a href="http://visionmedia.github.com/mocha/">http://visionmedia.github.com/mocha</a></li>
+  <li>Should: <a href="https://github.com/visionmedia/should.js">https://github.com/visionmedia/should.js</a></li>
+  <li>Request: <a href="https://github.com/mikeal/request">https://github.com/mikeal/request</a></li>
+  <li>Jasmine: <a href="http://pivotal.github.com/jasmine/">http://pivotal.github.com/jasmine/</a></li>
+</ul>
+</section>
+
+<section class="slide">
+<h2>Alternative REST API test framework</h2>
+<p>Frisby.js(<a href="http://frisbyjs.com/">http://frisbyjs.com</a>): REST API testing framework.</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">frisby</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;frisby&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">frisby</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;Get Brightbit Twitter feed&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;https://api.twitter.com/1/statuses/user_timeline.json?screen_name=brightbit&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">expectStatus</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">expectHeaderContains</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;application/json&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">expectJSON</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">place</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">val</span><span class="p">).</span><span class="nx">toMatchOrBeNull</span><span class="p">(</span><span class="s2">&quot;Oklahoma City, OK&quot;</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>    <span class="nx">user</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">verified</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">location</span><span class="o">:</span> <span class="s2">&quot;Oklahoma City, OK&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://brightb.it&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'>  <span class="p">.</span><span class="nx">expectJSONTypes</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">id_str</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">retweeted</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">in_reply_to_screen_name</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">val</span><span class="p">).</span><span class="nx">toBeTypeOrNull</span><span class="p">(</span><span class="nb">String</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>    <span class="nx">user</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">verified</span><span class="o">:</span> <span class="nb">Boolean</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">location</span><span class="o">:</span> <span class="nb">String</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">url</span><span class="o">:</span> <span class="nb">String</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">.</span><span class="nx">toss</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+</section>
+
+<section class="slide">
 <h1>Thanks &amp; QA</h1>
 </section>
 
