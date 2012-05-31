@@ -7,14 +7,7 @@
     <meta name="author" content="Xiaocong He">
 
     
-    <meta name="description" content="配合AMD/RequireJS使用Backbone.js 为什么使用AMD/RequireJS? 还记得C语言是怎么解决引用冲突的么? 1
-2
-3
-4
-5
-6
-#ifndef _MY_MODULE_H_
-#define _MY_MODULE_H_ /*my code here*/ #endif &hellip;">
+    <meta name="description" content="在AMD项目中使用grunt/bbb进行构建和发布 AMD项目的构建和发布 在 Javascript 前端项目中, 为了提高页面的响应速度, 通常需要对 js/css 文件进行: concat, 将多个 js 或者 css 文件合成一个文件, 这样能减少浏览器给服务器发送请求的此次数, &hellip;">
     
     <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
 
@@ -76,6 +69,127 @@
 </script>
 
 	<div id="content" class="inner">
+
+
+    <article class="post">
+    <h1 class="title"><a href="/blog/2012/05/30/use-bbb-slash-grunt-dot-js-to-build-slash-deploy-amd-project/">在AMD项目中使用grunt/bbb进行构建和发布</a></h1>
+    <div class="entry">
+        <h2>AMD项目的构建和发布</h2>
+
+<p>在 Javascript 前端项目中, 为了提高页面的响应速度, 通常需要对 js/css 文件进行:</p>
+
+<ul>
+<li>concat, 将多个 js 或者 css 文件合成一个文件, 这样能减少浏览器给服务器发送请求的此次数, 减少在网络通讯握手上花费的时间;</li>
+<li>minify, 去除 js 或者 css 文件中多余的字符, 例如注释, 换行, 空格等, 并将变量的可读的长名称改为不可读的短名称, 缩短 js 和 css 文件的长度, 减少网络传输的时间;</li>
+</ul>
+
+
+<p>目前已经有很多进行 Javascript 构建和发布管理的工具, 包括<a href="https://github.com/mde/jake">Jake</a>, <a href="https://github.com/cowboy/grunt">Grunt</a>, <a href="https://code.google.com/p/js-build-tools">js-build-tools</a> (ant tasks collection).
+<a href="http://requirejs.org/">RequireJS</a>也已经提供了一个很好的优化 js 文件的工具<a href="http://requirejs.org/docs/optimization.html">r.js</a>, 可以将多个 AMD 模块合并成一个文件.
+这里主要介绍 Grunt 的一个 plugin 集合: <a href="https://github.com/backbone-boilerplate/grunt-bbb">Grunt-bbb</a></p>
+
+<h2><a href="https://github.com/backbone-boilerplate/grunt-bbb">Grunt-bbb</a></h2>
+
+<p>bbb 主要包含下面这些 tasks:</p>
+
+<ul>
+<li><code>init</code>
+初始化一个空的项目模板.</li>
+<li><code>lint</code>
+确保所有的 js 文件符合 JSHint.</li>
+<li><code>less</code>
+编译 LESS 生成 css 文件.</li>
+<li><code>mincss</code>
+Minify 所有的 css 文件,并合并成一个 css 文件.</li>
+<li><code>min</code>
+grunt 内置 task, Minify js 文件.</li>
+<li><code>concat</code>
+合并多个文件到一个文件.</li>
+<li><code>requirejs</code>
+利用<code>r.js</code>合并<a href="http://requirejs.org/">RequireJS</a>模块到一个 js 文件.</li>
+<li><code>server</code>
+静态文件的 HTTP 服务, 用于开发调试.</li>
+</ul>
+
+
+<h3>安装</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>npm install -g bbb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>新项目初始化</h3>
+
+<p>进入空的项目目录,然后运行:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bbb init
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>根据命令行的提示输入相应的内容, 然后会生成一个空的 <code>grunt.js</code> 文件.</p>
+
+<h3>目录结构</h3>
+
+<p>bbb 要求按照如下目录结构组织源代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>|-app
+</span><span class='line'>   |-项目 js 文件
+</span><span class='line'>|-dist
+</span><span class='line'>   |-build生成的发布文件
+</span><span class='line'>|-assets
+</span><span class='line'>   |-require.js
+</span><span class='line'>   |-backbone.js
+</span><span class='line'>   |-underscore.js 等需要的 js 库文件
+</span><span class='line'>|-index.html
+</span><span class='line'>|-favicon.ico
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>css 和 img 文件缺省目录在 <code>assets/</code> 目录中. 我们可以更改 <code>grunt.js</code> 来增加/更改/删除任务(&#8216;task&#8217;), 以及更改任务的设置,
+包括缺省目录.</p>
+
+
+        
+        <a href="/blog/2012/05/30/use-bbb-slash-grunt-dot-js-to-build-slash-deploy-amd-project/" class="more-link">Read on &rarr;</a>
+    </div>
+    <div class="meta">
+        <div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-30T12:25:00+08:00" pubdate data-updated="true">May 30<span>th</span>, 2012</time></div>
+        <div class="tags">
+
+<div class="cat">
+  
+    <a class='category' href='/blog/categories/backbone-js/'>backbone.js</a>, <a class='category' href='/blog/categories/bbb/'>bbb</a>, <a class='category' href='/blog/categories/grunt-js/'>grunt.js</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/require-js/'>require.js</a>
+  
+</div>
+
+</div>
+        
+    </div>
+</article>
 
 
     <article class="post">
