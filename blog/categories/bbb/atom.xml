@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bbb | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/blog/categories/bbb/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-05-31T18:33:51+08:00</updated>
+  <updated>2012-06-04T11:33:38+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -89,7 +89,7 @@ $ bbb init
 |-favicon.ico
 </code></p>
 
-<p>css 和 img 文件缺省目录在 <code>assets/</code> 目录中. 我们可以更改 <code>grunt.js</code> 来增加/更改/删除任务('task'), 以及更改任务的设置,
+<p>css 和 img 文件缺省目录在 <code>assets/</code> 目录中. 我们可以更改 <code>grunt.js</code> 来增加/更改/删除任务(task), 以及更改任务的设置,
 包括缺省目录.</p>
 
 <!--more-->

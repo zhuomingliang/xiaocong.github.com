@@ -19,6 +19,18 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     
     
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-32376813-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -154,7 +166,7 @@ grunt 内置 task, Minify js 文件.</li>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>css 和 img 文件缺省目录在 <code>assets/</code> 目录中. 我们可以更改 <code>grunt.js</code> 来增加/更改/删除任务(&#8216;task&#8217;), 以及更改任务的设置,
+<p>css 和 img 文件缺省目录在 <code>assets/</code> 目录中. 我们可以更改 <code>grunt.js</code> 来增加/更改/删除任务(task), 以及更改任务的设置,
 包括缺省目录.</p>
 
 <!--more-->
