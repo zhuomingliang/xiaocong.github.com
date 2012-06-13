@@ -7,7 +7,7 @@
     <meta name="author" content="Xiaocong He">
 
     
-    <meta name="description" content="在AMD项目中使用grunt/bbb进行构建和发布 AMD项目的构建和发布 在 Javascript 前端项目中, 为了提高页面的响应速度, 通常需要对 js/css 文件进行: concat, 将多个 js 或者 css 文件合成一个文件, 这样能减少浏览器给服务器发送请求的此次数, &hellip;">
+    <meta name="description" content="Metaclasses in Python 什么是 metaclass ? In object-oriented programming, a metaclass is a class whose instances are classes. Just as an ordinary class &hellip;">
     
     <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
 
@@ -82,6 +82,73 @@
 </script>
 
 	<div id="content" class="inner">
+
+
+    <article class="post">
+    <h1 class="title"><a href="/blog/2012/06/12/python-metaclass/">Metaclasses in Python</a></h1>
+    <div class="entry">
+        <h2>什么是 metaclass ?</h2>
+
+<blockquote><p>In object-oriented programming, a metaclass is a class whose instances are <br/>classes. Just as an ordinary class defines the behavior of certain objects, a<br/>metaclass defines the behavior of certain classes and their instances.</p></blockquote>
+
+
+<p>简单的说, metaclass 就是 class 类型对象的 class, metaclass 的实例对象是 class 类型对象.</p>
+
+<h2>metaclass 能用来做什么 ?</h2>
+
+<p>我们就可以用 metaclass 来动态生成或者更改 class 的定义.</p>
+
+<p>下面分别是通过传统 class 方式以及 metaclass 动态定义类 <code>A</code></p>
+
+<figure class='code'><figcaption><span>传统 class 方式定于类 A</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">a</span> <span class="o">=</span> <span class="s">&#39;I am a string.&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>metaclass 动态定义类 `A`</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">A</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="s">&#39;I am a string.&#39;</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面我们通过<code>type</code>类的实例化来生成类<code>A</code>, 如果我们想自定义类的生成, 我们可以以<code>type</code>类为基
+类派生出自定义的 metaclass.</p>
+
+<p><em>注: 本文所有代码在 python2.6 下能执行通过, 不能确保在 python3 下无误.</em></p>
+
+
+        
+        <a href="/blog/2012/06/12/python-metaclass/" class="more-link">Read on &rarr;</a>
+    </div>
+    <div class="meta">
+        <div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-12T22:26:00+08:00" pubdate data-updated="true">Jun 12<span>th</span>, 2012</time></div>
+        <div class="tags">
+
+<div class="cat">
+  
+    <a class='category' href='/blog/categories/python/'>python</a>
+  
+</div>
+
+</div>
+        
+    </div>
+</article>
 
 
     <article class="post">
