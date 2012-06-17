@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-06-14T13:33:44+08:00</updated>
+  <updated>2012-06-17T23:46:38+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -33,6 +33,9 @@
 <li>你希望给一个类提供很多可选的特征(feature).</li>
 <li>你希望在很多不同的类中使用一个特定的特征(feature).</li>
 </ul>
+
+
+<!--more-->
 
 
 <p>例如, <a href="http://werkzeug.pocoo.org/docs/wrappers/">werkzeug</a> 的<code>request</code>, <code>response</code>系统.
