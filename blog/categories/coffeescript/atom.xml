@@ -4,7 +4,7 @@
   <title><![CDATA[Category: coffeescript | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/blog/categories/coffeescript/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-06-18T11:00:29+08:00</updated>
+  <updated>2012-06-18T11:09:42+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -146,13 +146,12 @@ _results.push(math.cube(num));
 <p>有谁愿意一次又一次地花时间琢磨<code>for</code>循环到<code>n</code>还是<code>n-1</code>结束呢? 这种琢磨对于软件来说到底有多大意思? 我们是按照自然语言的方式进行思维, 如果也按照自然语言的方式写代码, 那我们的大脑就不会花无谓的时间进行翻译了.</p>
 
 <p>看看下面CoffeeScript的代码， 是不是读完代码就明白了这段代码的意思?
-``` coffeescript
-foods = ['broccoli', 'spinach', 'chocolate']</p>
-
-<p>eat food for food in foods when food isnt 'chocolate'
-<code>
+<code>coffeescript
+foods = ['broccoli', 'spinach', 'chocolate']
+eat food for food in foods when food isnt 'chocolate'
+</code>
 然后再对照等价的JavaScript代码, 读代码的过程中, 不知道你的大脑需要花多长时间进行翻译?
-</code> javascript
+``` javascript
 var food, foods, <em>i, </em>len;</p>
 
 <p>foods = ['broccoli', 'spinach', 'chocolate'];</p>

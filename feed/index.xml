@@ -4,7 +4,7 @@
   <title><![CDATA[葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/feed" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-06-18T11:00:29+08:00</updated>
+  <updated>2012-06-18T11:09:42+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -210,9 +210,7 @@
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">foods = </span><span class="p">[</span><span class="s1">&#39;broccoli&#39;</span><span class="p">,</span> <span class="s1">&#39;spinach&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">]</span>
-</span><span class='line'>
 </span><span class='line'><span class="nx">eat</span> <span class="nx">food</span> <span class="k">for</span> <span class="nx">food</span> <span class="k">in</span> <span class="nx">foods</span> <span class="k">when</span> <span class="nx">food</span> <span class="o">isnt</span> <span class="s1">&#39;chocolate&#39;</span>
 </span></code></pre></td></tr></table></div></figure>
 
