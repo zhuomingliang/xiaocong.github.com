@@ -4,7 +4,7 @@
   <title><![CDATA[葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-06-17T23:46:38+08:00</updated>
+  <updated>2012-06-18T10:25:46+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -40,6 +40,9 @@
 
 
 <p>CoffeeScript的平均代码量估计不超过等价JavaScript代码量的50%.</p>
+
+<!--more-->
+
 
 <h2>优雅</h2>
 
@@ -203,7 +206,7 @@
 
 <p>有谁愿意一次又一次地花时间琢磨<code>for</code>循环到<code>n</code>还是<code>n-1</code>结束呢? 这种琢磨对于软件来说到底有多大意思? 我们是按照自然语言的方式进行思维, 如果也按照自然语言的方式写代码, 那我们的大脑就不会花无谓的时间进行翻译了.</p>
 
-<p>看看下面CoffeeScript的代码:</p>
+<p>看看下面CoffeeScript的代码， 是不是读完代码就明白了这段代码的意思?</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -214,7 +217,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>然后再对照等价的JavaScript代码:</p>
+<p>然后再对照等价的JavaScript代码, 读代码的过程中, 不知道你的大脑需要花多长时间进行翻译?</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -239,8 +242,6 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>基本不用怎么思考, 我们就能看懂CoffeeScript的代码, 但是对于JavaScript代码, 我们的大脑需要翻译才能看懂.</p>
-
 <h2>效率</h2>
 
 <p>代码逻辑需要技巧, 而程序逻辑需要智慧. CoffeeScript尽可能地在语法上解决代码逻辑, 而让你的大脑更多地去思考程序逻辑.</p>
@@ -252,8 +253,14 @@
 <ul>
 <li>coffee源代码目录: coffee</li>
 <li>grunt coffee编译任务: tasks/coffee.js</li>
-<li><p>更改grunt配置文件以支持coffee的编译: grunt.js</p></li>
-<li><p><a href="https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/bbb-amd-backbone-contacts/">地址本-JavaScript源码</a></p></li>
+<li>更改grunt配置文件以支持coffee的编译: grunt.js</li>
+</ul>
+
+
+<p>下面的链接你可以找到所有的源代码:</p>
+
+<ul>
+<li><a href="https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/bbb-amd-backbone-contacts/">地址本-JavaScript源码</a></li>
 <li><a href="https://github.com/xiaocong/xiaocong.github.com/tree/source/source/examples/coffee-bbb-amd-backbone-contacts/">地址本-CoffeeScript源码</a></li>
 <li><a href="http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-contacts/index.html">地址本-CoffeeScript演示</a></li>
 </ul>
