@@ -1167,7 +1167,7 @@
 </span><span class='line'>      <span class="nx">appView</span><span class="p">.</span><span class="nx">edit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getContact</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
 </span><span class='line'>    <span class="p">},</span>
 </span><span class='line'>    <span class="nx">getContact</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span> <span class="nx">id</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">||</span> <span class="nx">id</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span>
 </span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span><span class='line'>          <span class="k">return</span> <span class="nx">contacts</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span><span class='line'>      <span class="k">return</span> <span class="nx">contacts</span><span class="p">.</span><span class="nx">getByCid</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
@@ -1448,6 +1448,10 @@
       <ul>
         
           <li>
+            <a href="/blog/2012/06/26/backbone-dot-sync-and-crud/">Backbone.sync和资源的CRUD</a>
+          </li>
+        
+          <li>
             <a href="/blog/2012/06/15/beautiful-coffee-script/">美妙的Coffee-Script</a>
           </li>
         
@@ -1461,10 +1465,6 @@
         
           <li>
             <a href="/blog/2012/05/30/use-bbb-slash-grunt-dot-js-to-build-slash-deploy-amd-project/">在AMD项目中使用grunt/bbb进行构建和发布</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2012/05/16/use-amd-and-backbone-together/">配合AMD/RequireJS使用Backbone.js</a>
           </li>
         
       </ul>

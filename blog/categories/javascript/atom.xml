@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | 葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-06-18T11:09:42+08:00</updated>
+  <updated>2012-06-26T19:25:08+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -12,6 +12,298 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Backbone.sync和资源的CRUD]]></title>
+    <link href="http://xiaocong.github.com/blog/2012/06/26/backbone-dot-sync-and-crud/"/>
+    <updated>2012-06-26T01:33:00+08:00</updated>
+    <id>http://xiaocong.github.com/blog/2012/06/26/backbone-dot-sync-and-crud</id>
+    <content type="html"><![CDATA[<p><blockquote><p>Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.</p><footer><strong>Backbone.sync</strong> <cite><a href='http://documentcloud.github.com/backbone/#Sync'>documentcloud.github.com/#Sync/&hellip;</a></cite></footer></blockquote></p>
+
+<p>Backbone.sync的函数定义是<code>function(method, model, [options])</code>:</p>
+
+<ul>
+<li><strong>medhod</strong>: CRUD名称, 可以是<code>create</code>, <code>read</code>, <code>update</code>, <code>delete</code>.</li>
+<li><strong>model</strong>: 需要保存的model, 可以是Backbone.Model或者Backbone.Collection.</li>
+<li><strong>options</strong>: 所有jQuery请求选项, 包括success和error回掉函数.</li>
+</ul>
+
+
+<p>Backbone.sync方法的缺省实现是通过标准的RESTful风格的CRUD进行数据的操作. CRUD方法对应的REST接口分别是:</p>
+
+<ul>
+<li><strong>create</strong> -> <strong>POST</strong> <code>/collection</code></li>
+<li><strong>read</strong> -> <strong>GET</strong> <code>/collection[/id]</code></li>
+<li><strong>update</strong> -> <strong>PUT</strong> <code>/collection/id</code></li>
+<li><strong>create</strong> -> <strong>DELETE</strong> <code>/collection/id</code></li>
+</ul>
+
+
+<p>你可以通过重载全局的Backbone.sync, 或者Collection/Model的sync方法来改变其缺省实现.</p>
+
+<h2>localStorage方式实现Backbone.sync</h2>
+
+<p>在<a href="http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-contacts/index.html">地址本示例</a>中, 通过重载全局的Backbone.sync方法,
+将Collection/Model的CRUD操作转化为localStorage的对象CRUD操作.</p>
+
+<p>下面是Backbone.sync方法的定义(<a href="http://xiaocong.github.com/examples/coffee-bbb-amd-backbone-contacts/coffee/store.coffee">源码</a>),
+首先获得传递进来的model对象或其集合对象的localStorage属性对象, 并将CRUD操作转化为localStorage属性对象的数据CRUD操作:
+``` coffeescript
+  Backbone.sync = (method, model, options) -></p>
+
+<pre><code>store = model.localStorage or model.collection.localStorage
+
+switch method
+  when "read"
+    resp = if model.id then store.find(model) else store.findAll()
+  when "create"
+    resp = store.create(model)
+  when "update"
+    resp = store.update(model)
+  when "delete"
+    resp = store.destroy(model)
+
+if resp
+  options.success resp
+else
+  options.error "Record not found"
+</code></pre>
+
+<p><code>
+localStorage属性对象的类型定义如下, 数据最后是通过HTML本地存储方法`localStorage.setItem`进行持久化存储:
+</code> coffeescript
+  class Store</p>
+
+<pre><code>constructor: (@name) -&gt;
+  store = localStorage.getItem(@name)
+  @data = (store and JSON.parse(store)) or {}
+
+save: -&gt;
+  localStorage.setItem @name, JSON.stringify(@data)
+
+create: (model) -&gt;
+  model.id = model.attributes.id = guid() unless model.id
+  @data[model.id] = model
+  @save()
+  model
+
+update: (model) -&gt;
+  @data[model.id] = model
+  @save()
+  model
+
+find: (model) -&gt;
+  @data[model.id]
+
+findAll: -&gt;
+  _.values @data
+
+destroy: (model) -&gt;
+  delete @data[model.id]
+  @save()
+  model
+</code></pre>
+
+<p><code>``
+在定义Collection对象的时候, 需要定义其localStorage属性为上面定义的</code>Store`类型:
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (contacts.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-contacts/coffee/collections/contacts.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span> <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span> <span class="s1">&#39;models/contact&#39;</span><span class="p">,</span> <span class="s1">&#39;store&#39;</span><span class="p">],</span> <span class="nf">(_, Backbone, Contact, Store) -&gt;</span>
+</span><span class='line'>  <span class="nv">Contacts = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">model: </span><span class="nx">Contact</span>
+</span><span class='line'>    <span class="nv">localStorage: </span><span class="k">new</span> <span class="nx">Store</span><span class="p">(</span><span class="s1">&#39;my-contacts&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>  <span class="k">new</span> <span class="nx">Contacts</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Backbone.sync标准CRUD REST接口</h2>
+
+<p>如果采用标准的CRUD REST接口进行数据交换, 那就不用重载Backbone.sync方法, 只需要定义Collection的url属性(字符串或者方法)即可.
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (contacts.coffee)</span> <a href='/examples/coffee-bbb-amd-backbone-rest-contacts/coffee/collections/contacts.coffee'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">define</span> <span class="p">[</span><span class="s1">&#39;use!underscore&#39;</span><span class="p">,</span> <span class="s1">&#39;use!backbone&#39;</span><span class="p">,</span> <span class="s1">&#39;models/contact&#39;</span><span class="p">],</span> <span class="nf">(_, Backbone, Contact) -&gt;</span>
+</span><span class='line'>  <span class="nv">Contacts = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">model: </span><span class="nx">Contact</span>
+</span><span class='line'>    <span class="nv">url: </span><span class="s1">&#39;http://xiaocong.herokuapp.com/contacts/&#39;</span>
+</span><span class='line'>    <span class="nv">parse: </span><span class="nf">(resp) -&gt;</span>
+</span><span class='line'>      <span class="nx">resp</span><span class="p">.</span><span class="nx">results</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>  <span class="k">new</span> <span class="nx">Contacts</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>其中<code>http://xiaocong.herokuapp.com/contacts/</code>实现了标准的CRUD REST接口:</p>
+
+<ul>
+<li><strong>POST</strong> /contacts 生成一个新的地址本记录, 并返回带有新生成的id的地址本数据, 供客户端更新model的id.</li>
+<li><strong>GET</strong> /contacts 获取所有地址本数据, 由于Collection对象需要的集合数组在返回的JSON字符串的<code>results</code>属性中, 因此需要通过<code>parse</code>方法转换一下返回的结果.</li>
+<li><strong>GET</strong> /contacts/id 获取指定id的地址本数据.</li>
+<li><strong>PUT</strong> /contacts/id 更新指定id的地址本数据.</li>
+<li><strong>DELETE</strong> /contacts/id 删除指定id的地址本数据</li>
+</ul>
+
+
+<p><a href="/examples/coffee-bbb-amd-backbone-rest-contacts/index.html">使用该CRUD REST接口的演示</a>.</p>
+
+<p>下面是托管在<a href="http://www.heroku.com">heroku</a>上的该REST接口的python源代码:</p>
+
+<ul>
+<li>使用<a href="http://bottlepy.org/docs/dev/">bottle</a>微型web框架实现HTTP路由管理</li>
+<li>使用<a href="http://www.sqlalchemy.org/">sqlalchemy</a>实现数据库的持续化存储</li>
+<li>使用<a href="http://www.gevent.org/">gevent</a>实现HTTP并发服务</li>
+<li>通过<code>Access-Control-Allow-Origin</code>实现跨域调用</li>
+</ul>
+
+
+<p>``` python app.py
+from gevent import monkey; monkey.patch_all()</p>
+
+<p>from bottle import Bottle, route, get, post, put, delete, request, response, run, static_file, HTTPError
+from bottle.ext import sqlalchemy
+from sqlalchemy import create_engine, Column, Integer, Sequence, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import SQLAlchemyError</p>
+
+<p>import os</p>
+
+<p>app = Bottle()</p>
+
+<p>@app.route("/")
+def hello():</p>
+
+<pre><code>return "APIs for demo!"
+</code></pre>
+
+<p>Base = declarative_base()
+engine = create_engine(os.environ["SHARED_DATABASE_URL"], echo=True)
+create_session = sessionmaker(bind=engine)</p>
+
+<p>class Contact(Base):</p>
+
+<pre><code>__tablename__ = "contact"
+id = Column(Integer, Sequence('contact_id_seq'), primary_key=True)
+name = Column(String(50))
+email = Column(String(64))
+
+def __init__(self, name, email):
+    self.name = name
+    self.email = email
+
+def __repr__(self):
+    return "&lt;Contact('%d', '%s', '%s')&gt;" % (self.id, self.name, self.email)
+</code></pre>
+
+<p>contactsApp = Bottle()</p>
+
+<p>@contactsApp.hook("after_request")
+def crossDomianHook():</p>
+
+<pre><code>response.headers["Access-Control-Allow-Origin"] = "*"
+</code></pre>
+
+<p>@contactsApp.route(path="/", method="OPTIONS")
+def options1(*args):</p>
+
+<pre><code>return options(*args)
+</code></pre>
+
+<p>@contactsApp.route(path="/:id", method="OPTIONS")
+def options2(id, *args):</p>
+
+<pre><code>return options(*args)
+</code></pre>
+
+<p>def options(*args):</p>
+
+<pre><code>response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE"
+if request.headers.get("Access-Control-Request-Headers"):
+    response.headers["Access-Control-Allow-Headers"] = request.headers["Access-Control-Request-Headers"]
+</code></pre>
+
+<p>@contactsApp.post("/")
+def createContact(db):</p>
+
+<pre><code>'''Create contact'''
+contact = Contact(name=request.json["name"], email=request.json["email"])
+db.add(contact)
+db.commit()
+return {"id": contact.id, "name": contact.name, "email": contact.email}
+</code></pre>
+
+<p>@contactsApp.get("/")
+def getAllContacts(db):</p>
+
+<pre><code>'''Retrieve all contacts'''
+contacts = db.query(Contact)
+return {"results": [{"id":contact.id, "name":contact.name, "email":contact.email} for contact in contacts]}
+</code></pre>
+
+<p>@contactsApp.get("/:id")
+def getContact(id, db):</p>
+
+<pre><code>'''Retrieve specified contact with id'''
+contact = db.query(Contact).filter_by(id=id).first()
+if contact:
+    return {"id": contact.id, "name": contact.name, "email": contact.email}
+raise HTTPError(404, "Contact not found.")
+</code></pre>
+
+<p>@contactsApp.put("/:id")
+def updateContact(id, db):</p>
+
+<pre><code>'''Update contact'''
+session = create_session()
+try:
+    session.query(Contact).filter_by(id=id).update({"name": request.json["name"], "email": request.json["email"]})
+    session.commit()
+except SQLAlchemyError, e:
+    session.rollback()
+    raise HTTPError(500, "Database Error", e)
+finally:
+    session.close()
+</code></pre>
+
+<p>@contactsApp.delete("/:id")
+def deleteContact(id, db):</p>
+
+<pre><code>'''Delete contact'''
+session = create_session()
+try:
+    contact = session.query(Contact).filter_by(id=id).first()
+    session.delete(contact)
+    session.commit()
+except SQLAlchemyError, e:
+    session.rollback()
+    raise HTTPError(500, "Database Error", e)
+finally:
+    session.close()
+</code></pre>
+
+<p>sqlalchemyplugin = sqlalchemy.Plugin(engine, Base.metadata, create=True)
+contactsApp.install(sqlalchemyplugin)
+app.mount("/contacts", contactsApp)</p>
+
+<p>if <strong>name</strong> == "<strong>main</strong>":</p>
+
+<pre><code>port = int(os.environ.get("PORT", 5000))
+run(app=app, server="gevent", host="0.0.0.0", port=port, reloader=True)
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[美妙的Coffee-Script]]></title>
@@ -2045,7 +2337,7 @@ define('module1', ['jquery'] , function ($) {</p>
 </span><span class='line'>      <span class="nx">appView</span><span class="p">.</span><span class="nx">edit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getContact</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
 </span><span class='line'>    <span class="p">},</span>
 </span><span class='line'>    <span class="nx">getContact</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span> <span class="nx">id</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">||</span> <span class="nx">id</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span>
 </span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span><span class='line'>          <span class="k">return</span> <span class="nx">contacts</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span><span class='line'>      <span class="k">return</span> <span class="nx">contacts</span><span class="p">.</span><span class="nx">getByCid</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
