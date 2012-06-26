@@ -4,7 +4,7 @@
   <title><![CDATA[葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/feed" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-06-26T19:25:08+08:00</updated>
+  <updated>2012-06-26T19:37:19+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -941,7 +941,7 @@
     <id>http://xiaocong.github.com/blog/2012/06/12/python-metaclass</id>
     <content type="html"><![CDATA[<h2>什么是 metaclass ?</h2>
 
-<blockquote><p>In object-oriented programming, a metaclass is a class whose instances are <br/>classes. Just as an ordinary class defines the behavior of certain objects, a<br/>metaclass defines the behavior of certain classes and their instances.</p></blockquote>
+<blockquote><p>In object-oriented programming, a metaclass is a class whose instances are <br/>classes. Just as an ordinary class defines the behavior of certain objects, a<br/>metaclass defines the behavior of certain classes and their instances.</p><footer><strong>Metaclass</strong> <cite><a href='http://en.wikipedia.org/wiki/Metaclass'>en.wikipedia.org/wiki/Metaclass/&hellip;</a></cite></footer></blockquote>
 
 
 <p>简单的说, metaclass 就是 class 类型对象的 class, metaclass 的实例对象是 class 类型对象.</p>
