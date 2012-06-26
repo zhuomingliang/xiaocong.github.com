@@ -4,7 +4,7 @@
   <title><![CDATA[葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-06-26T19:37:19+08:00</updated>
+  <updated>2012-06-26T19:49:35+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -18,7 +18,7 @@
     <link href="http://xiaocong.github.com/blog/2012/06/26/backbone-dot-sync-and-crud/"/>
     <updated>2012-06-26T01:33:00+08:00</updated>
     <id>http://xiaocong.github.com/blog/2012/06/26/backbone-dot-sync-and-crud</id>
-    <content type="html"><![CDATA[<blockquote><p>Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.</p><footer><strong>Backbone.sync</strong> <cite><a href='http://documentcloud.github.com/backbone/#Sync'>documentcloud.github.com/#Sync/&hellip;</a></cite></footer></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>Backbone.sync是Backbone用来和服务器进行数据交换的方法. 每当Collection或者Model的数据发生变化, Backbone就会调用Backbone.sync进行数据的CRUD操作, 这个同步方法的缺省实现是使用(jQuery/Zepto).ajax向服务器发送RESTful JSON请求, 并返回一个jqXHR. 你可以通过重载这个方法来定义不同的持续化策略, 例如WebSocket, XML, 或者本地存储.</p><footer><strong>Backbone</strong> <cite><a href='http://documentcloud.github.com/backbone/#Sync'>Backbone.sync</a></cite></footer></blockquote>
 
 
 <p>Backbone.sync的函数定义是<code>function(method, model, [options])</code>:</p>
@@ -941,7 +941,7 @@
     <id>http://xiaocong.github.com/blog/2012/06/12/python-metaclass</id>
     <content type="html"><![CDATA[<h2>什么是 metaclass ?</h2>
 
-<blockquote><p>In object-oriented programming, a metaclass is a class whose instances are <br/>classes. Just as an ordinary class defines the behavior of certain objects, a<br/>metaclass defines the behavior of certain classes and their instances.</p><footer><strong>Metaclass</strong> <cite><a href='http://en.wikipedia.org/wiki/Metaclass'>en.wikipedia.org/wiki/Metaclass/&hellip;</a></cite></footer></blockquote>
+<blockquote><p>In object-oriented programming, a metaclass is a class whose instances are <br/>classes. Just as an ordinary class defines the behavior of certain objects, a<br/>metaclass defines the behavior of certain classes and their instances.</p><footer><strong>Wikipedia</strong> <cite><a href='http://en.wikipedia.org/wiki/Metaclass'>Metaclass</a></cite></footer></blockquote>
 
 
 <p>简单的说, metaclass 就是 class 类型对象的 class, metaclass 的实例对象是 class 类型对象.</p>
@@ -1147,7 +1147,7 @@
 <p>metaclass 会降低代码的可读性, 并且很多使用 metaclass 的场景都有替代方案, 因此必须牢记下面的
 忠告:</p>
 
-<blockquote><p>Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don’t (the people who actually need them know with certainty that they need them, and don’t need an explanation about why).</p></blockquote>
+<blockquote><p>Metaclasses are deeper magic than 99% of users should ever worry about. If you wonder whether you need them, you don’t (the people who actually need them know with certainty that they need them, and don’t need an explanation about why).</p><footer><strong>Tim Peters</strong> <cite>Python Guru</cite></footer></blockquote>
 
 
 <h2>参考</h2>
@@ -2130,7 +2130,7 @@ grunt 内置 task, Minify js 文件.</li>
 
 <p>Backbone解决的是将用户数据，页面显示，以及流程控制模块化，而AMD解决的是将不同功能的代码封装到小的代码单元，代码单元功能的注册，以及代码依赖。</p>
 
-<blockquote><p>What are JavaScript modules? What is their purpose?<br/>- Definition: how to encapsulate a piece of code into a useful unit, and how to register its capability/export a value for the module.<br/>- Dependency References: how to refer to other units of code.</p></blockquote>
+<blockquote><p>What are JavaScript modules? What is their purpose?<br/>- Definition: how to encapsulate a piece of code into a useful unit, and how to register its capability/export a value for the module.<br/>- Dependency References: how to refer to other units of code.</p><footer><strong>requirejs</strong> <cite><a href='http://requirejs.org/docs/whyamd.html#purposes'>Why AMD?</a></cite></footer></blockquote>
 
 
 <h2>如何使用AMD/RequireJS?</h2>
