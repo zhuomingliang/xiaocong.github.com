@@ -4,7 +4,7 @@
   <title><![CDATA[葱丝瓣酱]]></title>
   <link href="http://xiaocong.github.com/atom.xml" rel="self"/>
   <link href="http://xiaocong.github.com/"/>
-  <updated>2012-07-21T14:58:42+08:00</updated>
+  <updated>2012-07-23T13:05:08+08:00</updated>
   <id>http://xiaocong.github.com/</id>
   <author>
     <name><![CDATA[Xiaocong He]]></name>
@@ -37,9 +37,9 @@
 如果要在项目中实施持续集成, 就必须不能依赖浏览器而以命令行方式执行测试.</p>
 
 <p>曾经尝试过<a href="http://www.envjs.com/">envjs</a>, 但在当前的实现中, <a href="http://www.envjs.com/">envjs</a>还不能顺利运行<a href="http://requirejs.org/">requirejs</a>的异步模块加载(<a href="https://github.com/envjs/env-js/issues/7">issue</a>).
-<a href="http://phantomjs.org/">Phantomjs</a>是另外一种方案, 它可以很顺利地集成<a href="http://pivotal.github.com/jasmine/">jasmine</a>以及[requirejs][], 但是如果需要集成得很好, 必须得实现一个<a href="http://pivotal.github.com/jasmine/">jasmine</a>的<code>reporter</code>用来和<a href="http://phantomjs.org/">Phantomjs</a>进行通讯,
+<a href="http://phantomjs.org/">Phantomjs</a>是另外一种方案, 它可以很顺利地集成<a href="http://pivotal.github.com/jasmine/">jasmine</a>以及<a href="http://requirejs.org/">requirejs</a>, 但是如果需要集成得很好, 必须得实现一个<a href="http://pivotal.github.com/jasmine/">jasmine</a>的<code>reporter</code>用来和<a href="http://phantomjs.org/">Phantomjs</a>进行通讯,
 并且还得实现一个<a href="https://github.com/cowboy/grunt">gruntjs</a>任务插件, 用来调用<a href="http://phantomjs.org/">Phantomjs</a>执行测试, 以及生成测试报告. 这个工作量不大, 我也曾经完成了一个最简单的<a href="https://github.com/cowboy/grunt">gruntjs</a>任务来调用<a href="http://phantomjs.org/">Phantomjs</a>. 正在想着怎样进行重构的时候,
-突然发现最新的<a href="https://github.com/backbone-boilerplate/grunt-bbb">bbb</a>已经悄然导入了<a href="https://github.com/creynders/grunt-jasmine-task">grunt-jasmine-task</a>.</p>
+突然发现最新的<a href="https://github.com/backbone-boilerplate/grunt-bbb">bbb</a>已经悄然导入了<a href="https://github.com/creynders/grunt-jasmine-task">grunt-jasmine-task</a>, 一个利用<a href="http://phantomjs.org/">Phantomjs</a>执行<a href="http://pivotal.github.com/jasmine/">jasmine</a>测试的<a href="https://github.com/cowboy/grunt">gruntjs</a>任务插件.</p>
 
 <p>Ok, 那一切就简单了. 现在仅仅需要修改<code>grunt.js</code>配置文件来定义项目的<code>jasmine</code>任务. 当然, 之前必须安装<a href="http://phantomjs.org/">Phantomjs</a>(<a href="https://github.com/cowboy/grunt">gruntjs</a>网站上有关于如何安装的<a href="https://github.com/cowboy/grunt/blob/master/docs/faq.md#why-does-grunt-complain-that-phantomjs-isnt-installed">faq</a>).</p>
 
@@ -210,7 +210,7 @@
 
 <p>假如你看过<a href="https://github.com/cowboy/grunt">gruntjs</a>的代码, 你应当能看出来, 这其实就是<a href="https://github.com/cowboy/grunt">gruntjs</a>自带的<code>server</code>任务, 只是为了避免和<code>bbb</code>的<code>server</code>任务命名冲突, 这里将任务注册的名称从<code>server</code>换成了<code>staticserver</code>.</p>
 
-<p>然后, 我们可以注册一个<code>alias task</code>命名为<code>test</code>:</p>
+<p>将<code>staticserver.js</code>文件和其他<code>gruntjs</code> <code>task</code>文件一样存放在<code>&lt;工程目录&gt;/tasks</code>目录下, 确保这个任务能正确加载. 然后, 如下注册一个<code>alias task</code>命名为<code>test</code>:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
